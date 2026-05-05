@@ -1,0 +1,17 @@
+venv/
+books/
+logs/
+__pycache__/
+*.pyc
+data/*.jsonl
+data/sub_index.faiss
+data/sub_records.npy
+data/crossref.json
+data/crossref_stats.json
+data/book_meta.json
+data/validation_report.json
+data/chunks.npy
+data/meta.npy
+data/cookbook_index.faiss
+*.log
+.env

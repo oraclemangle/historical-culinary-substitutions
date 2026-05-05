@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: old-recipe-intelligence
+    runtime: docker
+    dockerfilePath: ./Dockerfile.frontend
+    plan: starter
+    healthCheckPath: /
+    envVars:
+      - key: API_BASE
+        sync: false  # set to your Cloud Run URL in Render dashboard
+      - key: API_KEY
+        sync: false

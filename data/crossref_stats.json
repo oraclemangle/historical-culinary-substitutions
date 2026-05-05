@@ -1,0 +1,112 @@
+{
+  "total_ingredients": 11775,
+  "total_substitute_pairs": 30913,
+  "total_citations": 36657,
+  "confidence_breakdown": {
+    "high": 146,
+    "medium": 542,
+    "low": 30225
+  },
+  "top_ingredients": [
+    {
+      "ingredient": "butter",
+      "citations": 589,
+      "substitutes": 263
+    },
+    {
+      "ingredient": "milk",
+      "citations": 515,
+      "substitutes": 246
+    },
+    {
+      "ingredient": "cream",
+      "citations": 396,
+      "substitutes": 196
+    },
+    {
+      "ingredient": "water",
+      "citations": 333,
+      "substitutes": 199
+    },
+    {
+      "ingredient": "meat",
+      "citations": 261,
+      "substitutes": 173
+    },
+    {
+      "ingredient": "chicken",
+      "citations": 245,
+      "substitutes": 99
+    },
+    {
+      "ingredient": "sugar",
+      "citations": 213,
+      "substitutes": 125
+    },
+    {
+      "ingredient": "flour",
+      "citations": 199,
+      "substitutes": 153
+    },
+    {
+      "ingredient": "lard",
+      "citations": 186,
+      "substitutes": 102
+    },
+    {
+      "ingredient": "wine",
+      "citations": 176,
+      "substitutes": 107
+    },
+    {
+      "ingredient": "egg",
+      "citations": 173,
+      "substitutes": 106
+    },
+    {
+      "ingredient": "coffee",
+      "citations": 159,
+      "substitutes": 122
+    },
+    {
+      "ingredient": "beef",
+      "citations": 157,
+      "substitutes": 73
+    },
+    {
+      "ingredient": "vanilla",
+      "citations": 154,
+      "substitutes": 87
+    },
+    {
+      "ingredient": "brandy",
+      "citations": 151,
+      "substitutes": 106
+    },
+    {
+      "ingredient": "apple",
+      "citations": 141,
+      "substitutes": 75
+    },
+    {
+      "ingredient": "vinegar",
+      "citations": 131,
+      "substitutes": 81
+    },
+    {
+      "ingredient": "lemon juice",
+      "citations": 121,
+      "substitutes": 67
+    },
+    {
+      "ingredient": "veal",
+      "citations": 116,
+      "substitutes": 52
+    },
+    {
+      "ingredient": "ham",
+      "citations": 115,
+      "substitutes": 71
+    }
+  ]
+}

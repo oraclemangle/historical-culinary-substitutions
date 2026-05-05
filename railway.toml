@@ -1,0 +1,13 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "bash startup.sh"
+healthcheckPath = "/v1/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[environments.production.variables]
+LLM_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+LLM_MODEL    = "gemini-2.5-flash"

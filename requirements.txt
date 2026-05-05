@@ -1,0 +1,15 @@
+fastapi>=0.115
+uvicorn>=0.32
+gradio>=5.0
+sentence-transformers>=5.0
+faiss-cpu>=1.9
+openai>=1.0
+google-cloud-aiplatform>=1.70
+google-genai>=1.0
+numpy>=2.0
+requests>=2.32
+tqdm>=4.66
+ingredient-parser-nlp>=2.5
+google-cloud-storage>=3.0
+google-auth>=2.0
+google-auth-httplib2>=0.2

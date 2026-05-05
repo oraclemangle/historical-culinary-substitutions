@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Old Recipe Moderniser — Translate any historical recipe to modern cooking</title>
+  <meta name="description" content="Paste an old recipe and get a modern version with today's ingredients and measurements. Grounded in 500+ historical cookbooks from 1658–1929.">
+  <meta property="og:title" content="Old Recipe Moderniser">
+  <meta property="og:description" content="Turn any Victorian or Edwardian recipe into something you can actually cook today.">
+  <style>
+    :root {
+      --bg: #fdf8f0;
+      --surface: #fff;
+      --border: #e2d5c0;
+      --accent: #8b4513;
+      --accent-hover: #a0521a;
+      --text: #2c1a0e;
+      --muted: #7a6652;
+      --tag-bg: #f5ede0;
+      --result-bg: #f9f5ee;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--accent);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .logo { color: #fff; font-size: 1.1rem; font-weight: bold; }
+    header a { color: rgba(255,255,255,0.8); text-decoration: none; font-family: system-ui, sans-serif; font-size: 0.85rem; }
+    header a:hover { color: #fff; }
+
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero h1 { font-size: 2.4rem; line-height: 1.2; margin-bottom: 0.75rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto 2rem; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      max-width: 780px;
+      margin: 0 auto 2rem;
+      box-shadow: 0 2px 12px rgba(139,69,19,0.07);
+    }
+
+    label {
+      display: block;
+      font-family: system-ui, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--bg);
+      resize: vertical;
+      min-height: 140px;
+      transition: border-color 0.15s;
+    }
+    textarea:focus { outline: none; border-color: var(--accent); }
+
+    .examples {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .example-chip {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.78rem;
+      color: var(--accent);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .example-chip:hover { background: #eedcc4; }
+
+    .btn-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; align-items: center; }
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.7rem 1.75rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover:not(:disabled) { background: var(--accent-hover); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-clear {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-clear:hover:not(:disabled) { background: var(--tag-bg); }
+
+    .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(139,69,19,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result-section { margin-top: 1.75rem; display: none; }
+    .result-section.visible { display: block; }
+
+    .result-label {
+      font-family: system-ui, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.6rem;
+    }
+
+    .modernised-text {
+      background: var(--result-bg);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 1.25rem 1.5rem;
+      font-size: 1rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .source-card {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.82rem;
+    }
+    .source-card .pair { font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .source-card .citation { color: var(--muted); font-style: italic; }
+    .source-card .snippet { color: var(--text); margin-top: 0.3rem; font-size: 0.78rem; opacity: 0.8; }
+
+    .meta-row {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 0.75rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .error-box {
+      background: #fff5f5;
+      border: 1px solid #f5c6c6;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      color: #a00;
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .error-box.visible { display: block; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+    .how-section {
+      max-width: 780px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+    }
+    .how-section h2 { font-size: 1.4rem; margin-bottom: 1.25rem; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+    .step { font-family: system-ui, sans-serif; font-size: 0.9rem; }
+    .step .num { font-size: 1.5rem; color: var(--accent); font-weight: bold; margin-bottom: 0.3rem; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.75rem; }
+      .card { padding: 1.25rem; margin: 0 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="logo">Old Recipe Intelligence</span>
+  <a href="index.html">API Docs →</a>
+</header>
+
+<div class="hero">
+  <h1>Turn old recipes into<br><span>modern cooking</span></h1>
+  <p>Paste any historical recipe. We'll translate archaic ingredients, measurements, and techniques using 500+ cookbooks from 1658–1929.</p>
+</div>
+
+<div class="card">
+  <label for="recipe-input">Paste your old recipe</label>
+  <textarea id="recipe-input" placeholder="e.g. Take one gill of cream, the yolks of three eggs, a wine-glass of sherry, and a pennyweight of sugar. Beat well and heat gently over a slow fire, stirring constantly. Do not let it boil."></textarea>
+
+  <div class="examples">
+    <span style="font-family:system-ui;font-size:0.75rem;color:var(--muted);align-self:center;">Try:</span>
+    <span class="example-chip" onclick="setExample(0)">Victorian cream pudding</span>
+    <span class="example-chip" onclick="setExample(1)">Mutton with lard sauce</span>
+    <span class="example-chip" onclick="setExample(2)">Treacle gingerbread</span>
+    <span class="example-chip" onclick="setExample(3)">Hartshorn jelly</span>
+  </div>
+
+  <div class="btn-row">
+    <button id="modernise-btn" onclick="modernise()">Modernise Recipe</button>
+    <button class="btn-clear" onclick="clear_all()">Clear</button>
+    <div class="spinner" id="spinner"></div>
+  </div>
+
+  <div class="error-box" id="error-box"></div>
+
+  <div class="result-section" id="result-section">
+    <hr class="divider">
+    <div class="result-label">Modern version</div>
+    <div class="modernised-text" id="answer-text"></div>
+
+    <div class="meta-row">
+      <span id="latency-text"></span>
+      <span id="sources-count-text"></span>
+    </div>
+
+    <hr class="divider">
+    <div class="result-label">Source references</div>
+    <div class="sources-grid" id="sources-grid"></div>
+  </div>
+</div>
+
+<div class="how-section">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <strong>Semantic search</strong><br>Your recipe is matched against 36,000+ substitution pairs from historical cookbooks using food-domain embeddings.
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <strong>Grounded context</strong><br>The most relevant substitution records — with book and year — are assembled as context.
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <strong>LLM synthesis</strong><br>An AI rewrites the recipe using the historical context as its source of truth, not general knowledge.
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <strong>Cited sources</strong><br>Every answer shows which books informed it — so you know where the substitution logic comes from.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Sources: Project Gutenberg &amp; Internet Archive. All books pre-1929 public domain.</p>
+  <p style="margin-top:0.5rem"><a href="index.html">API access</a> &middot; Built with historical cookbooks from 1658–1929</p>
+</footer>
+
+<script>
+const API_BASE = '/v1';
+const API_KEY  = ''; // Set via deployment config
+
+const EXAMPLES = [
+  "Take one gill of cream, the yolks of three eggs, a wine-glass of sherry, and a pennyweight of sugar. Beat well and heat gently over a slow fire, stirring constantly. Do not let it boil.",
+  "Boil a leg of mutton until quite tender. Lard with fat bacon and roast before a clear fire. For sauce, mix the dripping with a little flour, add salt and pepper, and serve very hot.",
+  "Mix half a pound of treacle with a pennyweight of ginger, a teacup of warm milk, and enough flour to make a stiff batter. Bake in a moderate oven for half an hour.",
+  "Take the feet of a calf or hartshorn shavings, boil them in water until the liquor jellies when cold. Strain, add lemon juice and loaf sugar, and pour into moulds.",
+];
+
+function setExample(i) {
+  document.getElementById('recipe-input').value = EXAMPLES[i];
+  document.getElementById('result-section').classList.remove('visible');
+  document.getElementById('error-box').classList.remove('visible');
+}
+
+function clear_all() {
+  document.getElementById('recipe-input').value = '';
+  document.getElementById('result-section').classList.remove('visible');
+  document.getElementById('error-box').classList.remove('visible');
+}
+
+async function modernise() {
+  const question = document.getElementById('recipe-input').value.trim();
+  if (!question) return;
+
+  const btn     = document.getElementById('modernise-btn');
+  const spinner = document.getElementById('spinner');
+  const errBox  = document.getElementById('error-box');
+  const result  = document.getElementById('result-section');
+
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  errBox.classList.remove('visible');
+  result.classList.remove('visible');
+
+  try {
+    const resp = await fetch(`${API_BASE}/modernise`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+      body: JSON.stringify({ question }),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.detail || `HTTP ${resp.status}`);
+    }
+
+    const data = await resp.json();
+
+    document.getElementById('answer-text').textContent = data.answer;
+    document.getElementById('latency-text').textContent = `${data.latency_ms}ms`;
+
+    const srcs = (data.sources || []).filter(s => s.ingredient && s.substitute);
+    document.getElementById('sources-count-text').textContent =
+      srcs.length ? `${srcs.length} source records` : '';
+
+    const grid = document.getElementById('sources-grid');
+    grid.innerHTML = '';
+    srcs.slice(0, 6).forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'source-card';
+      div.innerHTML = `
+        <div class="pair">${s.ingredient} → ${s.substitute}</div>
+        <div class="citation">${s.book} (${s.year})</div>
+        ${s.context ? `<div class="snippet">"${s.context.slice(0,100)}${s.context.length>100?'…':''}"</div>` : ''}
+      `;
+      grid.appendChild(div);
+    });
+
+    result.classList.add('visible');
+  } catch(e) {
+    errBox.textContent = `Error: ${e.message}`;
+    errBox.classList.add('visible');
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+  }
+}
+
+document.getElementById('recipe-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) modernise();
+});
+</script>
+</body>
+</html>

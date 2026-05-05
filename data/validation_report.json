@@ -1,0 +1,177 @@
+{
+  "total_records": 36657,
+  "clean_records": 32074,
+  "issues_summary": {
+    "self_substitution": 190,
+    "nonsense_ingredient": 3,
+    "nonsense_substitute": 4,
+    "missing_context": 15,
+    "missing_year": 4396
+  },
+  "samples": {
+    "self_substitution": [
+      {
+        "idx": 304,
+        "book": "Cookery Imperial Rome",
+        "year": 1936,
+        "ingredient": "liver",
+        "substitute": "kid liver"
+      },
+      {
+        "idx": 339,
+        "book": "Cookery Imperial Rome",
+        "year": 1936,
+        "ingredient": "eel",
+        "substitute": "sea-eel"
+      },
+      {
+        "idx": 366,
+        "book": "Cookery Imperial Rome",
+        "year": 1936,
+        "ingredient": "snail",
+        "substitute": "sea-snail"
+      },
+      {
+        "idx": 761,
+        "book": "Directions For Cookery",
+        "year": 1837,
+        "ingredient": "grape",
+        "substitute": "fox grape"
+      },
+      {
+        "idx": 850,
+        "book": "Directions For Cookery",
+        "year": 1837,
+        "ingredient": "unskinned calf's foot",
+        "substitute": "skinned calf's foot"
+      }
+    ],
+    "nonsense_ingredient": [
+      {
+        "idx": 3908,
+        "book": "Mrs Hale Receipts",
+        "year": 1857,
+        "ingredient": "ivory black, lamp-black, treacle, sweet oil, coarse gum arabic, green copperas, stale vinegar, oil of vitriol (first recipe)",
+        "substitute": "ivory-black, oil of vitriol, sweet-oil, sugar-candy, vinegar (second recipe)"
+      },
+      {
+        "idx": 15371,
+        "book": "The Household Cyclopedia Of General Information",
+        "year": 1881,
+        "ingredient": "barbadoes aloes 6 drachms, calomol 2 drachms, oil of peppermint 20 drops, warm water 1 pint, tincture of cardamons 2 ounces",
+        "substitute": "common salt 4 ounces, ginger 2 drachms, carbonate of soda 1 ounce, water 1 quart"
+      },
+      {
+        "idx": 15372,
+        "book": "The Household Cyclopedia Of General Information",
+        "year": 1881,
+        "ingredient": "prepared chalk, ginger, and aniseeds, in powder, each 1 ounce; essential oil of peppermint, 15 drops; rectified spirit of wine, 1 /2 an ounce",
+        "substitute": "prepared chalk, 2 ounces; aniseeds and caraway seeds, in powder each, 1 ounce; opium, 1/2 a drachm"
+      }
+    ],
+    "nonsense_substitute": [
+      {
+        "idx": 9389,
+        "book": "Commonsense Cookery For English Households With Tw",
+        "year": 1913,
+        "ingredient": "veal and veal bone",
+        "substitute": "trimmings of meat, giblets and bones of poultry, skeleton remains of fowl or game, bacon rind, scraps of lean ham or bacon"
+      },
+      {
+        "idx": 16721,
+        "book": "The Household Cyclopedia Of General Information",
+        "year": 1881,
+        "ingredient": "fixed alkali (in bottle-glass)",
+        "substitute": "little or no fixed alkali / alkaline earth and oxide of iron combined with alumina and silica / sand and refuse of soap-boiler"
+      },
+      {
+        "idx": 17975,
+        "book": "A Comprehensive Guidebook To Natural Hygienic And ",
+        "year": 0,
+        "ingredient": "flesh-diet",
+        "substitute": "brown bread, dried and fresh fruit, nuts, farinaceous puddings, omelets, dishes made with cheese, macaroni, lentils, haricots, tomatoes"
+      },
+      {
+        "idx": 31361,
+        "book": "Food Adulteration And Its Detection With Photomicr",
+        "year": 1887,
+        "ingredient": "cognac",
+        "substitute": "alcohol (85%), rum (good quality), syrup of raisins, infusion of green walnut hulls, infusion of shells of bitter almonds, catechu, balsam of tolu, pure water, caramel"
+      }
+    ],
+    "missing_context": [
+      {
+        "idx": 9774,
+        "book": "Commonsense Cookery For English Households With Tw",
+        "year": 1913,
+        "ingredient": "crab",
+        "substitute": "mock crab"
+      },
+      {
+        "idx": 17211,
+        "book": "133 Quicker Ways To Homemade With Bisquick",
+        "year": 0,
+        "ingredient": "nut",
+        "substitute": "fruit"
+      },
+      {
+        "idx": 19810,
+        "book": "A Treatise On Adulterations Of Food And Culinary P",
+        "year": 1820,
+        "ingredient": "beer",
+        "substitute": "ginger"
+      },
+      {
+        "idx": 26978,
+        "book": "Detection Of The Common Food Adulterants",
+        "year": 1907,
+        "ingredient": "baking powder",
+        "substitute": "alum"
+      },
+      {
+        "idx": 26982,
+        "book": "Detection Of The Common Food Adulterants",
+        "year": 1907,
+        "ingredient": "bread",
+        "substitute": "alum"
+      }
+    ],
+    "missing_year": [
+      {
+        "idx": 17082,
+        "book": "12 Pies Husbands Like Best Aunt Jennys Recipe Book",
+        "year": 0,
+        "ingredient": "butter",
+        "substitute": "margarine"
+      },
+      {
+        "idx": 17083,
+        "book": "12 Pies Husbands Like Best Aunt Jennys Recipe Book",
+        "year": 0,
+        "ingredient": "fresh coconut",
+        "substitute": "shredded moist coconut"
+      },
+      {
+        "idx": 17084,
+        "book": "12 Pies Husbands Like Best Aunt Jennys Recipe Book",
+        "year": 0,
+        "ingredient": "blueberry",
+        "substitute": "blackberry"
+      },
+      {
+        "idx": 17085,
+        "book": "12 Pies Husbands Like Best Aunt Jennys Recipe Book",
+        "year": 0,
+        "ingredient": "blueberry",
+        "substitute": "raspberry"
+      },
+      {
+        "idx": 17086,
+        "book": "12 Pies Husbands Like Best Aunt Jennys Recipe Book",
+        "year": 0,
+        "ingredient": "blueberry",
+        "substitute": "boysenberry"
+      }
+    ]
+  }
+}

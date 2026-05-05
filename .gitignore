@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Books corpus (large; distribute separately or via DVC)
+books/
+
+# Extracted data artefacts (rebuilt by pipeline; commit only index files for deployment)
+data/substitutions.jsonl
+data/measurements.jsonl
+data/terms.jsonl
+data/substitutions_enriched.jsonl
+data/substitutions_enriched.bak.jsonl
+data/substitutions_enriched_gcs.jsonl
+data/chunks.npy
+data/meta.npy
+
+# Large index/data files — download from GCS at deploy time via sync_data.py
+data/*.faiss
+data/*.npy
+data/crossref.json
+
+# Audit report contains 200 raw substitution records — protect CC BY-NC dataset moat
+data/audit_report.json
+
+# Keep small JSON metadata in git:
+# data/crossref_stats.json
+# data/book_meta.json
+# data/validation_report.json
+
+# Logs
+logs/
+*.log
+nohup.out
+
+# Credentials — NEVER commit
+*.json
+!data/*.json
+
+# Re-exclude specific data/*.json files (override !data/*.json above)
+data/crossref.json
+data/audit_report.json
+
+# Env
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+hf_dataset/*.jsonl
+hf_dataset/dataset_stats.json
