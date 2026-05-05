@@ -17,6 +17,7 @@ Usage:
 import argparse
 import json
 import random
+import os
 import re
 import sys
 import time
@@ -26,11 +27,13 @@ import requests
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
+# Comma-separated list of Ollama hosts, e.g.
+#   OLLAMA_HOSTS=http://host-a:11434,http://host-b:11434
 OLLAMA_HOSTS = [
-    "http://192.168.0.32:11434",
-    "http://192.168.3.2:11434",
+    h.strip() for h in os.getenv("OLLAMA_HOSTS", "http://localhost:11434").split(",")
+    if h.strip()
 ]
-MODEL_ID     = "qwen3.5:35b-a3b"
+MODEL_ID     = os.getenv("OLLAMA_MODEL", "qwen3.5:35b-a3b")
 TIMEOUT      = 300  # seconds per batch
 
 DATA_DIR     = Path("data")
